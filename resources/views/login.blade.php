@@ -16,6 +16,9 @@
         </div>
         <br>
         <input type="submit" class="btn btn-primary" value="Login" />
-        </div>
+    <br>
+        <p><a href="{{ $oauth_dropbox_uri }}">Войти через Dropbox</a></p>
     </form>
+
+
 

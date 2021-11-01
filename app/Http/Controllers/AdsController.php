@@ -24,7 +24,7 @@ class AdsController extends Controller
 
     public function create(Ads $ads = null)
     {
-        if (isset($ads) && $ads->user_id !== Auth::id()) {
+        if (isset($ads) && !Auth::user()->can('update', $ads)) {
             return redirect()->route('home');
         }
         return view('ads.form', compact('ads'));
@@ -32,7 +32,7 @@ class AdsController extends Controller
 
     public function save(Request $request, Ads $ads = null)
     {
-        if (isset($ads) && $ads->user_id !== Auth::id()) {
+        if (isset($ads) && !Auth::user()->can('update', $ads)) {
             return redirect()->route('home');
         }
         $data = $request->validate([
@@ -48,7 +48,7 @@ class AdsController extends Controller
 
     public function delete(Ads $ads)
     {
-        if (isset($ads) && $ads->user_id !== Auth::id()) {
+        if (!Auth::user()->can('delete', $ads)) {
             return redirect()->route('home');
         }
         $ads->delete();
